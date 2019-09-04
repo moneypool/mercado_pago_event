@@ -28,5 +28,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails"
   spec.add_dependency "mercadopago-sdk"
   spec.add_development_dependency "rspec-rails"
+<<<<<<< HEAD
   spec.add_development_dependency "byebug"
+=======
+>>>>>>> initial commit
 end

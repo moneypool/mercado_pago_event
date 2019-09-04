@@ -42,3 +42,23 @@ module MercadoPagoEvent
   self.backend = ActiveSupport::Notifications
   self.payment_retriever = lambda { |id| MercadoPagoRuby.get("/v1/payments/#{id}") }
 end
+<<<<<<< HEAD
+=======
+
+# POST Example from Mercado Pago
+
+# {
+#     "id": 12345,
+#     "live_mode": true,
+#     "type": "payment",
+#     "date_created": "2015-03-25T10:04:58.396-04:00",
+#     "application_id": 123123123,
+#     "user_id": 44444,
+#     "version": 1,
+#     "api_version": "v1",
+#     "action": "payment.created",
+#     "data": {
+#         "id": "999999999"
+#     }
+# }
+>>>>>>> initial commit

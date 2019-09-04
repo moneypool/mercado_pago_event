@@ -158,7 +158,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+<<<<<<< HEAD
   byebug
+=======
+>>>>>>> initial commit
   mercado_pago_event!
   rspec-rails
 
