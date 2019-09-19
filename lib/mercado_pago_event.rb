@@ -1,4 +1,5 @@
 require "active_support/notifications"
+require "ostruct"
 require "mercado_pago_event/engine" if defined?(Rails)
 
 module MercadoPagoEvent
@@ -13,8 +14,8 @@ module MercadoPagoEvent
     end
 
     def instrument(params)
-      payment = payment_retriever.call(params[:data][:id])
-      backend.instrument("#{NAMESPACE}.#{params[:action]}", payment)
+      @payment = retrieve_payment(params)
+      backend.instrument("#{NAMESPACE}.#{action}", @payment)
     end
 
     def subscribe(name, callable = Proc.new)
@@ -24,6 +25,24 @@ module MercadoPagoEvent
     def listening?(name)
       namespaced_name = "#{NAMESPACE}.#{name}"
       backend.notifier.listening?(namespaced_name)
+    end
+
+    def action
+      case @payment.status
+      when "charged_back"
+        "chargeback.created"
+      when "rejected"
+        "rejected"
+      when "refunded"
+        "refuneded"
+      when "approved"
+        "payment.created"
+      end
+    end
+
+    def retrieve_payment(params)
+      payment = payment_retriever.call(params[:data][:id])
+      OpenStruct.new(payment)
     end
   end
 

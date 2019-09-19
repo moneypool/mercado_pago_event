@@ -3,8 +3,7 @@ require "spec_helper"
 describe MercadoPagoEvent do
   let(:events) { [] }
   let(:subscriber) { -> (event) { events << event } }
-  let(:charge_succeeded) { double('charge_succeeded') }
-  let(:charge_failed) { double('charge failed') }
+  let(:event) { {action: "payment.created", data: { id: '0000001' }} }
 
   describe ".configure" do
     it "is configured by a block" do
@@ -27,7 +26,7 @@ describe MercadoPagoEvent do
     context "with a block subscriber" do
       it "calls the subscriber with the event" do
         MercadoPagoEvent.subscribe("payment.created", &subscriber)
-        MercadoPagoEvent.instrument({action: "payment.created", data: { id: '0000001' }})
+        MercadoPagoEvent.instrument(event)
 
         expect(events).to eq([charge_succeeded])
       end
@@ -65,5 +64,11 @@ describe MercadoPagoEvent do
 
       adapter.call(subscriber).call(:first, :last)
     end
+  end
+
+  private
+
+  def charge_succeeded
+    OpenStruct.new(id: '0000001', status: 'approved')
   end
 end
