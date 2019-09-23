@@ -4,6 +4,7 @@ PATH
     mercado_pago_event (0.1.0)
       mercadopago-sdk
       rails
+      rspec-rails
 
 GEM
   remote: https://rubygems.org/
@@ -160,7 +161,6 @@ PLATFORMS
 DEPENDENCIES
   byebug
   mercado_pago_event!
-  rspec-rails
 
 BUNDLED WITH
    1.17.2
