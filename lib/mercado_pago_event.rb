@@ -28,7 +28,7 @@ module MercadoPagoEvent
     end
 
     def action
-      case @payment.status
+      case @payment&.status
       when "charged_back"
         "payment.chargeback.created"
       when "rejected"
@@ -41,7 +41,8 @@ module MercadoPagoEvent
     end
 
     def retrieve_payment(params)
-      response = payment_retriever.call(params[:data][:id])
+      return unless id = params.to_h.dig("data", "id")
+      response = payment_retriever.call(id)
       OpenStruct.new(response["response"])
     end
   end
