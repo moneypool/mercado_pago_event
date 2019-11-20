@@ -6,7 +6,7 @@ module MercadoPagoEvent
     end
 
     def permitted_params
-      params.permit(:action, :api_version, :application_id, :date_created, :id, :live_mode, :type, :user_id, :data, :version, :webhook)
+      params.permit!
     end
   end
 end

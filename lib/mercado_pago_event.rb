@@ -42,8 +42,8 @@ module MercadoPagoEvent
 
     def retrieve_payment(params)
       return unless id = params.to_h.dig("data", "id")
-      response = payment_retriever.call(id)
-      OpenStruct.new(response["response"])
+      response = payment_retriever.call(id)["response"]
+      JSON.parse(response.to_json, object_class: OpenStruct)
     end
   end
 
